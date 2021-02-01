@@ -25,14 +25,14 @@ public class Netflix implements StreamingService {
     public void watch(Account user, String videoContentName) throws ContentUnavailableException {
 
         if(!isAccountValid(user))
-            throw new UserNotFoundException(String.format("Current user %s is not found.", user.getUsername()));
+            throw new UserNotFoundException(String.format("Current user '%s' is not found.", user.getUsername()));
 
         Streamable content = findByName(videoContentName);
         PgRating rating = content.getRating();
         int userAge = LocalDateTime.now().getYear() - user.getBirhdayDate().getYear();
 
         if(!isAgeAdvisable(userAge, rating))
-            throw new ContentUnavailableException(String.format("Content with rating %s is restricted.", rating.name()));
+            throw new ContentUnavailableException(String.format("Content with rating '%s' is restricted.", rating.name()));
 
         content.setViews(content.getViews() + 1);
     }
@@ -59,7 +59,7 @@ public class Netflix implements StreamingService {
             }
         }
 
-        throw new ContentNotFoundException(String.format("No content with name %s found.", videoContentName));
+        throw new ContentNotFoundException(String.format("No content with name '%s' found.", videoContentName));
     }
 
     @Override
@@ -83,9 +83,9 @@ public class Netflix implements StreamingService {
     public int totalWatchedTimeByUsers() {
         int totalWatchTime = 0;
 
-        for(Streamable s : streamables)
-            totalWatchTime += s.getViews();
-
+        for(Streamable s : streamables) {
+            totalWatchTime += (s.getDuration() * s.getViews());
+        }
         return totalWatchTime;
     }
 
