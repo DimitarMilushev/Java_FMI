@@ -14,18 +14,17 @@ public class SmartCityHub {
     private final String DEVICE_CANNOT_BE_NULL = "Device cannot be null!";
     private final String DEVICE_NOT_FOUND = "No such device found!";
 
-    private List<SmartDevice> devices;
+    private final Map<String, SmartDevice> devices;
+    private final Map<DeviceType, Integer> registeredTypes;
+
 
     public SmartCityHub() {
 
         //Set type is implicitly set to SmartDevice
-        this.devices = new ArrayList<>();
+        this.devices = new LinkedHashMap<>();
+        this.registeredTypes = new EnumMap<>(DeviceType.class);
     }
 
-    public SmartCityHub(ArrayList<SmartDevice> devices) {
-
-        this.devices = devices;
-    }
 
     /**
      * Adds a @device to the SmartCityHub.
@@ -43,7 +42,12 @@ public class SmartCityHub {
             throw new DeviceAlreadyRegisteredException(String.format("Device with ID %s is already registered!", device.getId()));
         }
 
-        this.devices.add(device);
+        this.devices.put(device.getId(), device);
+
+        DeviceType type = device.getType();
+        int count = this.registeredTypes.getOrDefault(type, 0);
+
+        this.registeredTypes.put(type, count);
         //throw new UnsupportedOperationException();
     }
 
@@ -64,6 +68,7 @@ public class SmartCityHub {
         }
 
         this.devices.remove(device);
+        this.registeredTypes.put(device.getType(), this.registeredTypes.get(device.getType()) - 1);
         //throw new UnsupportedOperationException();
     }
 
@@ -78,12 +83,14 @@ public class SmartCityHub {
             throw new IllegalArgumentException("Input ID is null!");
         }
 
-        for (SmartDevice dev : this.devices) {
-            if(dev.getId().equals(id))
-                return dev;
-        }
+        SmartDevice device = this.devices.get(id);
 
-        throw new DeviceNotFoundException(String.format("Device with ID %s is not found.", id));
+        if(device == null) {
+            throw new DeviceNotFoundException(String.format("Device with ID %s is not found.", id));
+        }
+        else {
+            return device;
+        }
     }
 
     /**
@@ -96,13 +103,7 @@ public class SmartCityHub {
             throw new IllegalArgumentException("Type cannot be null.");
         }
 
-        int typeCount = 0;
-        for (SmartDevice dev : this.devices) {
-            if(dev.getType() == type)
-                ++typeCount;
-        }
-
-        return typeCount;
+        return this.registeredTypes.getOrDefault(type,0);
     }
 
     /**
@@ -121,7 +122,7 @@ public class SmartCityHub {
             throw new IllegalArgumentException("Number cannot be less than 1.");
         }
 
-        List<SmartDevice> sortedList = this.devices;
+        List<SmartDevice> sortedList = new ArrayList<>(this.devices.values());
 
         Collections.sort(sortedList, new Comparator<SmartDevice>() {
             @Override
@@ -163,16 +164,15 @@ public class SmartCityHub {
             throw new IllegalArgumentException("Number cannot be greater than the devices.");
         }
 
-        List<SmartDevice> firstNDevices = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            firstNDevices.add(this.devices.get(i));
-        }
 
-        return firstNDevices;
+        return new ArrayList<>(this.devices.values()).subList(0, n);
         //throw new UnsupportedOperationException();
     }
 
     private Boolean IsDeviceInList(SmartDevice device) {
-        return this.devices.contains(device);
+        return this.devices.containsValue(device);
+    }
+    private Boolean IsDeviceInList(String id) {
+        return this.devices.containsKey(id);
     }
 }

@@ -2,7 +2,6 @@ package com.company.device;
 
 import com.company.enums.DeviceType;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 public abstract class AbstractSmartDevice implements SmartDevice{
