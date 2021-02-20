@@ -1,7 +1,7 @@
 package com.company.warehouse;
 
 import java.time.LocalDateTime;
-import java.util.AbstractMap;
+
 
 public class Main {
 
@@ -13,7 +13,7 @@ public class Main {
             mjt.submitParcel("Label2", "Parcel55", LocalDateTime.now().minusDays(2));
             mjt.submitParcel("Label3", "Parcel545", LocalDateTime.now().minusDays(10));
 
-            System.out.println(mjt.deliverParcelsSubmittedAfter(LocalDateTime.now().minusDays(5)));
+            System.out.println(mjt.deliverParcelsSubmittedAfter(null));
         }
         catch(Exception ex) {
             System.out.println(ex.getMessage());

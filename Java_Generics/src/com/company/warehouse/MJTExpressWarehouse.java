@@ -82,6 +82,7 @@ public class MJTExpressWarehouse<L, P> implements DeliveryServiceWarehouse<L, P>
 
     @Override
     public Map<L, P> deliverParcelsSubmittedBefore(LocalDateTime before) {
+        this.checkIfElementIsNull("Date before", before);
         Map<L, P> allItems = new HashMap<>();
 
         for (Map.Entry<MJTLabel<L>, P> entry : this.parcelsList.entrySet()) {
@@ -97,6 +98,8 @@ public class MJTExpressWarehouse<L, P> implements DeliveryServiceWarehouse<L, P>
 
     @Override
     public Map<L, P> deliverParcelsSubmittedAfter(LocalDateTime after) {
+        this.checkIfElementIsNull("Date after", after);
+
         Map<L, P> allItems = new HashMap<>();
 
         for (Map.Entry<MJTLabel<L>, P> entry : this.parcelsList.entrySet()) {
