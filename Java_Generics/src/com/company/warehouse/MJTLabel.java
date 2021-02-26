@@ -15,10 +15,10 @@ public class MJTLabel<L> implements Comparable<MJTLabel<L>> {
 
     @Override
     public int compareTo(MJTLabel<L> o) {
-        if(this.submissionDate != null && o.submissionDate != null) {
+        if (this.submissionDate != null && o.submissionDate != null) {
             int comparison = this.submissionDate.compareTo(o.submissionDate);
 
-            if(comparison != 0) {
+            if (comparison != 0) {
                 return this.submissionDate.compareTo(o.submissionDate);
             }
         }
@@ -32,11 +32,11 @@ public class MJTLabel<L> implements Comparable<MJTLabel<L>> {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o) {
+        if (this == o) {
             return true;
         }
 
-        if(!(o instanceof MJTLabel)) {
+        if (!(o instanceof MJTLabel)) {
             return false;
         }
 

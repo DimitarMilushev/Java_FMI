@@ -31,12 +31,12 @@ public class MJTExpressWarehouse<L, P> implements DeliveryServiceWarehouse<L, P>
         checkIfElementIsNull("Label", label);
         checkIfElementIsNull("Parcel", parcel);
 
-        if(submissionDate.isAfter(LocalDateTime.now())) {
+        if (submissionDate.isAfter(LocalDateTime.now())) {
 
             throw new IllegalArgumentException("Date cannot be set in the future.");
         }
 
-        if(parcelsList.size() > capacity) {
+        if (parcelsList.size() > capacity) {
             throw new CapacityExceededException(PARCEL_LIST_FULL);
         }
 
@@ -55,7 +55,7 @@ public class MJTExpressWarehouse<L, P> implements DeliveryServiceWarehouse<L, P>
         checkIfElementIsNull("Label", label);
 
         P parcel = this.parcelsList.getOrDefault(label, null);
-        if(parcel == null) {
+        if (parcel == null) {
             throw new ParcelNotFoundException("Parcel with the given label does not exist in the warehouse.");
         }
 
@@ -86,7 +86,7 @@ public class MJTExpressWarehouse<L, P> implements DeliveryServiceWarehouse<L, P>
         Map<L, P> allItems = new HashMap<>();
 
         for (Map.Entry<MJTLabel<L>, P> entry : this.parcelsList.entrySet()) {
-            if(entry.getKey().getSubmissionDate().isBefore(before)) {
+            if (entry.getKey().getSubmissionDate().isBefore(before)) {
 
                 allItems.put(entry.getKey().getLabel(), entry.getValue());
                 this.parcelsList.remove(entry.getKey().getLabel());
@@ -103,7 +103,7 @@ public class MJTExpressWarehouse<L, P> implements DeliveryServiceWarehouse<L, P>
         Map<L, P> allItems = new HashMap<>();
 
         for (Map.Entry<MJTLabel<L>, P> entry : this.parcelsList.entrySet()) {
-            if(after.isBefore(entry.getKey().getSubmissionDate())) {
+            if (after.isBefore(entry.getKey().getSubmissionDate())) {
 
                 allItems.put(entry.getKey().getLabel(), entry.getValue());
                 this.parcelsList.remove(entry.getKey().getLabel());
@@ -113,9 +113,9 @@ public class MJTExpressWarehouse<L, P> implements DeliveryServiceWarehouse<L, P>
         return allItems;
     }
 
-    private void checkIfElementIsNull (String name, Object element) throws IllegalArgumentException{
+    private void checkIfElementIsNull(String name, Object element) throws IllegalArgumentException {
 
-        if(element == null) {
+        if (element == null) {
             throw new IllegalArgumentException(name + this.IS_INVALID);
         }
     }
