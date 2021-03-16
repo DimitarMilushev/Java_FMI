@@ -6,8 +6,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class SpotifyExplorer {
-    private final String NO_TRACKS_FROM_PERIOD =
-            "There are tracks from the %s's in our database.";
 
     private Set<SpotifyTrack> tracksSet;
     /**
@@ -23,9 +21,9 @@ public class SpotifyExplorer {
     private void initializeTrackSet(Reader dataInput) {
         try (BufferedReader reader = new BufferedReader(dataInput)) {
 
-            this.tracksSet = reader.lines().skip(1)
-                    .map(SpotifyTrack::of)
-                    .collect(Collectors.toSet());
+                this.tracksSet = reader.lines().skip(1)
+                        .map(SpotifyTrack::of)
+                        .collect(Collectors.toSet());
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage() + '\n');
@@ -77,7 +75,7 @@ public class SpotifyExplorer {
 
         return groupedTracksByYear;
 //        groupedTracksByYear = this.tracksSet.stream()
-//                .collect(Collectors.toMap(track -> track.year(), HashSet::add)
+//                .collect(Collectors.groupingBy(SpotifyTrack:year, Collectors.toSet())));
     }
 
     /**
@@ -153,9 +151,10 @@ public class SpotifyExplorer {
         final int startOfPeriod = 1990;
         final int endOfPeriod = 1999;
         List<SpotifyTrack> tracksFromAge = getTracksFromPeriod(startOfPeriod, endOfPeriod);
+
         if(tracksFromAge.isEmpty()) {
             throw new NoSuchElementException
-                    (String.format(this.NO_TRACKS_FROM_PERIOD, 90));
+                    (String.format("There are tracks from the %s's in our database.", 90));
         }
 
         return tracksFromAge.stream()

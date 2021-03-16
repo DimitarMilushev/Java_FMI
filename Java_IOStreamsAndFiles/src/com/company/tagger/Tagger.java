@@ -8,6 +8,10 @@ import java.util.*;
 
 
 public class Tagger {
+    private final String patternBeforeWord = "[^a-zA-Z0-9]\\b";
+    private final String patternAfterWord = "\\b[^a-zA-Z0-9]";
+    private final String COUNTRY_TAG = "%s<city country=\"%s\">%s</city>%s";
+
     private final Map<String, ArrayList<String>> countriesList;     //list of Countries with cities
     private final Map<String, Integer> cityOccurrences;             //list of cities and their occurrence count
 
@@ -54,6 +58,13 @@ public class Tagger {
 
         return name.replaceAll("'s", "")
                 .replaceAll("[^A-Za-z0-9]", "")
+                .trim();
+    }
+
+    private String getNameWithoutOutsideSymbols(String name) {
+
+        return name.replaceAll(this.patternAfterWord, "")
+                .replaceAll(this.patternBeforeWord, "")
                 .trim();
     }
 
@@ -114,6 +125,7 @@ public class Tagger {
 
         try (BufferedReader inputReader = new BufferedReader(text);
              BufferedWriter writer = new BufferedWriter(output)) {
+
             ArrayList<String> words = new ArrayList<>();
 
             String input;
@@ -137,8 +149,14 @@ public class Tagger {
                           first %s is the country name
                           second %s is the city name
                          */
-                        String COUNTRY_TAG = "<city country=\"%s\">%s</city>";
-                        writer.append(String.format(COUNTRY_TAG, country, words.get(i)));
+                        String prefixSymbol = getBoundarySymbol(words.get(i), true);
+                        // true means we get prefix
+                        String suffixSymbol = getBoundarySymbol(words.get(i), false);
+
+                        writer.append(
+                                String.format(
+                                        COUNTRY_TAG, prefixSymbol, country,
+                                        this.getNameWithoutOutsideSymbols(words.get(i)), suffixSymbol));
                     }
 
                     if(i < words.size() - 1) {
@@ -150,6 +168,23 @@ public class Tagger {
             System.out.println(ex.getMessage());
             System.out.println(Arrays.toString(ex.getStackTrace()));
         }
+    }
+
+    private String getBoundarySymbol(String name, boolean isPrefix) {
+        String result = "";
+
+        if(isPrefix) {
+            if(name.matches(this.patternBeforeWord)) {
+                return name.substring(0, 1);
+            }
+        }
+        else {
+            if(name.matches(this.patternAfterWord)) {
+                return name.substring(name.length() - 1);
+            }
+        }
+
+        return "";
     }
 
     /**

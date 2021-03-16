@@ -26,7 +26,7 @@ public class Main {
 //                    .forEach((k, v) -> System.out.println(k + ": " + v));
 
             //System.out.println(explorer.getArtistActiveYears("Rob Zombie"));
-            System.out.println(explorer.getNumberOfLongerTracksBeforeYear(10, 1999));
+            System.out.println(explorer.getAllSpotifyTracks());
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
