@@ -18,6 +18,7 @@ public class TestMJTDiningPlace {
 
     @Mock
     private MJTDiningPlace mockedDiningPlace;
+
     private static MJTDiningPlace diningPlace;
 
     @BeforeClass

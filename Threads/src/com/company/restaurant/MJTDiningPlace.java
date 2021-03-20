@@ -1,10 +1,7 @@
 package com.company.restaurant;
 
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 
 public class MJTDiningPlace implements Restaurant{
 
@@ -16,11 +13,11 @@ public class MJTDiningPlace implements Restaurant{
     private final AtomicInteger totalOrders;
 
 
-    public MJTDiningPlace (int chefs) {
+    public MJTDiningPlace (int chefsCount) {
         ordersList = new PriorityQueue<Order>(Collections.reverseOrder());
         isClosed = false;
         totalOrders = new AtomicInteger(0);
-        this.chefs = new Chef[chefs];
+        this.chefs = new Chef[chefsCount];
         initializeChefsList();
     }
 //    private final Function<Order, Boolean> getByVipCard = order -> order.customer().hasVipCard();

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/1_Intro/1_Intro.iml" filepath="$PROJECT_DIR$/1_Intro/1_Intro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_CleanCode/Java_CleanCode.iml" filepath="$PROJECT_DIR$/Java_CleanCode/Java_CleanCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java_FMI.iml" filepath="$PROJECT_DIR$/.idea/Java_FMI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_Generics/Java_Generics.iml" filepath="$PROJECT_DIR$/Java_Generics/Java_Generics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_IOStreamsAndFiles/Java_IOStreamsAndFiles.iml" filepath="$PROJECT_DIR$/Java_IOStreamsAndFiles/Java_IOStreamsAndFiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_LambdasAndStreamAPI/Java_LambdasAndStreamAPI.iml" filepath="$PROJECT_DIR$/Java_LambdasAndStreamAPI/Java_LambdasAndStreamAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_OOP/Java_OOP.iml" filepath="$PROJECT_DIR$/Java_OOP/Java_OOP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_OOP_2/Java_OOP_2.iml" filepath="$PROJECT_DIR$/Java_OOP_2/Java_OOP_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Threads/Threads.iml" filepath="$PROJECT_DIR$/Threads/Threads.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UnitTestingAndMocking/UnitTestingAndMocking.iml" filepath="$PROJECT_DIR$/UnitTestingAndMocking/UnitTestingAndMocking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java_IOStreamsAndFiles/test/test.iml" filepath="$PROJECT_DIR$/Java_IOStreamsAndFiles/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UnitTestingAndMocking/test/test1.iml" filepath="$PROJECT_DIR$/UnitTestingAndMocking/test/test1.iml" />
+    </modules>
+  </component>
+</project>

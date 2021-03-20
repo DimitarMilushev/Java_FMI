@@ -1,5 +1,7 @@
 package com.company.restaurant;
 
+import java.util.Formattable;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Chef extends Thread {
@@ -19,22 +21,29 @@ public class Chef extends Thread {
 
     @Override
     public void run() {
-        Order order;
 
-        while((order = this.restaurant.nextOrder()) != null) {
 
-            try {
-                Thread.sleep(order.meal().getCookingTime() * 100L);
+    }
 
-            } catch (InterruptedException ex) {
-                System.out.println("Thread " + this.id + "was interrupted!");
-            }
+    public class PrepOrder implements Callable<String> {
 
-            System.out.printf("%s has cooked meal %s.\n",
-                    this.getName(), order.meal().getName());
-            System.out.println(++this.mealsCooked);
+        @Override
+        public String call() throws Exception {
+            Order order = restaurant.nextOrder();
+
+                try {
+                    Thread.sleep(order.meal().getCookingTime() * 100L);
+
+                } catch (InterruptedException ex) {
+                    System.out.println("Thread " + id + "was interrupted!");
+                }
+
+                return String.format("""
+                            %s has cooked meal %s.
+                            %s has cooked %d meals.
+                                     """,
+                        getName(), order.meal().getName(), ++mealsCooked);
         }
-
     }
 
     /**
@@ -47,5 +56,7 @@ public class Chef extends Thread {
     public static int getNewId() {
         return chefsCount.getAndIncrement();
     }
+
+
 
 }
