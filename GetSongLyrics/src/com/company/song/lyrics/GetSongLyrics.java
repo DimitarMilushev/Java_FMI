@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 public class GetSongLyrics {
 
     private final String api = "api.lyrics.ovh";
-    public String getLyrics(String artist, String songName, Boolean isAsync)
+    public String getLyrics(String artist, String songName)
             throws URISyntaxException, IOException, InterruptedException {
 
         HttpClient client = HttpClient.newBuilder().build();
@@ -26,13 +26,5 @@ public class GetSongLyrics {
                 .build();
 
         return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
-    }
-
-    private void doSync(URI uri) {
-
-    }
-
-    private void doAsync(URI uri) {
-
     }
 }
