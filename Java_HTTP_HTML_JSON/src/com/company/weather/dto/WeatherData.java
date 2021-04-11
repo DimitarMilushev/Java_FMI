@@ -13,9 +13,11 @@ public class WeatherData {
 
     @Override
     public String toString() {
-        return  "Temperature: " + temperature +
-                 System.lineSeparator() +
-                "Feels like: " + feelsLike;
+        return  String.format("""
+                Temperature: %.2f°C
+                Feels like: %.2f°C""",
+                this.temperature,
+                this.feelsLike);
     }
 
     public WeatherData(double temp, double feelsLike) {
