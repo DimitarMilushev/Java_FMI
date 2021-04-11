@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            System.out.println(new GetSongLyrics().getLyrics("Eminem", "Beautiful", false));
+            System.out.println(new GetSongLyrics().getLyrics("Eminem", "Beautiful"));
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
